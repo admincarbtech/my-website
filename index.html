@@ -3,35 +3,463 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>Portfolio • Developer</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-    header { background: #222; color: white; padding: 20px; }
-    section { padding: 40px; }
-    img { max-width: 400px; margin: 20px auto; display: block; border-radius: 12px; }
-    footer { background: #f2f2f2; padding: 20px; margin-top: 40px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated gradient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #0a0a0a, #111111, #1a1a1a, #111111, #0a0a0a);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -2;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      padding: 60px 40px 120px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .logo-placeholder {
+      width: 120px;
+      height: 120px;
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 24px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      animation: logoGlow 3s ease-in-out infinite alternate;
+      border: 1px solid #444;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .logo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, #666, #333, #666, #333);
+      background-size: 300% 300%;
+      border-radius: 26px;
+      z-index: -1;
+      animation: logoBorderFlow 4s linear infinite;
+    }
+
+    @keyframes logoGlow {
+      0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05); }
+      100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.1); }
+    }
+
+    @keyframes logoBorderFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .logo-placeholder img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff, #cccccc, #ffffff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: textShimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes textShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #888;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Section styling */
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #555, #fff, #555);
+      border-radius: 2px;
+    }
+
+    /* Projects section */
+    .project-card {
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 0;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transition: left 0.6s;
+    }
+
+    .project-card:hover::before {
+      left: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #8B5CF6, #A855F7, #7C3AED);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+      position: relative;
+      overflow: hidden;
+      padding: 8px;
+    }
+
+    .app-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      animation: iconShine 3s ease-in-out infinite;
+    }
+
+    @keyframes iconShine {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .project-info h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .project-info p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #cccccc;
+    }
+
+    /* About section */
+    .about-content {
+      background: rgba(15, 15, 15, 0.6);
+      border-radius: 24px;
+      padding: 60px 50px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-content::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+      animation: aboutGlow 8s linear infinite;
+    }
+
+    @keyframes aboutGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .about-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #e0e0e0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(5, 5, 5, 0.8);
+      padding: 40px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 80px;
+    }
+
+    footer p {
+      color: #666;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      section { padding: 60px 20px; }
+      .project-header { flex-direction: column; text-align: center; gap: 20px; }
+      .about-content { padding: 40px 30px; }
+      header { padding: 40px 20px 80px; }
+    }
+
+    /* Smooth scroll indicators */
+    .scroll-indicator {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .scroll-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .scroll-dot.active {
+      background: #fff;
+      transform: scale(1.5);
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Site</h1>
-    <p>A quick site built with GitHub Pages</p>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Scroll indicators -->
+  <div class="scroll-indicator">
+    <div class="scroll-dot active" data-section="home"></div>
+    <div class="scroll-dot" data-section="projects"></div>
+    <div class="scroll-dot" data-section="about"></div>
+  </div>
+
+  <header id="home">
+    <div class="logo-placeholder">
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQ1IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMiLz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHg9IjMwIiB5PSIzMCIgdmlld0JveD0iMCAwIDUwIDUwIj4KPHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTM4IDI1SDI3VjE0TDE0IDE0VjI1SDNWMjhIMTRWMzlIMjdWMjhIMzhWMjVaIiBmaWxsPSJ3aGl0ZSIvPgo8ZyBvcGFjaXR5PSIwLjgiPgo8cGF0aCBkPSJNMjYuNSAzNi41SDMuNVYzOS41SDI2LjVWMzYuNVoiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iMzgiIHI9IjIuNSIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMzYiIGN5PSIzNCIgcj0iMS41IiBmaWxsPSJ3aGl0ZSIvPgo8L2c+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+" alt="Carbtech Logo">
+    </div>
+    <h1>Carbtech</h1>
+    <p class="tagline">Innovative Development Solutions</p>
   </header>
 
-  <section>
-    <h2>About</h2>
-    <p>This is a super simple site I made quickly.</p>
-    <img src="images/photo1.jpg" alt="Example Image">
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="app-icon">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiByeD0iNjAiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxnIGZpbHRlcj0idXJsKCNmaWx0ZXIwX2RfMV8xKSI+CjxwYXRoIGQ9Ik03MyAxNzdIMTQ4SDE4NlYyMTNINzNWMTc3WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTczIDEyM0gxNDhIMTg2VjE1OUg3M1YxMjNaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNzMgNjlIMTQ4SDE4NlYxMDVINzNWNjlaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNzMgMjMxSDI0NFYyNjdINzNWMjMxWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8cGF0aCBkPSJNMjE2IDkwSDI0NFYxMThIMjE2VjkwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4yIi8+CjxwYXRoIGQ9Ik0yMTYgMTMwSDI0NFYxNThIMjE2VjEzMFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8cGF0aCBkPSJNMjE2IDE3MEgyNDRWMTk4SDIxNlYxNzBaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjIiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl8xXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjMwMCIgeTI9IjMwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjOEI1Q0Y2Ii8+CjxzdG9wIG9mZnNldD0iMC41IiBzdG9wLWNvbG9yPSIjQTg1NUY3Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8L2xpbmVhckdyYWRpZW50Pgo8ZmlsdGVyIGlkPSJmaWx0ZXIwX2RfMV8xIiB4PSI2OSIgeT0iNjkiIHdpZHRoPSIxNzkiIGhlaWdodD0iMjAyIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+CjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VBbHBoYSIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIiByZXN1bHQ9ImhhcmRBbHBoYSIvPgo8ZmVPZmZzZXQgZHk9IjQiLz4KPGZLR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIvPgo8ZmVDb21wb3NpdGUgaW4yPSJoYXJkQWxwaGEiIG9wZXJhdG9yPSJvdXQiLz4KPGZLQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAuMjUgMCIvPgo8ZmVCbGVuZCBtb2RlPSJub3JtYWwiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvd18xXzEiLz4KPGZLR2xvZ2UgZmVDb2xvckludGVycG9sYXRpb25GaWx0ZXI9InNSR0IiIGluPSJTb3VyY2VHcmFwaGljIiByZXN1bHQ9InNoYXBlIi8+CjwvZmlsdGVyPgo8L2RlZnM+Cjwvc3ZnPg==" alt="Nota Logo">
+        </div>
+        <div class="project-info">
+          <h3>Nota</h3>
+          <p>A revolutionary note-taking application that combines powerful organization tools with an intuitive, minimalist interface. Nota transforms the way you capture, organize, and access your thoughts with advanced search capabilities, seamless synchronization across devices, and intelligent categorization that adapts to your workflow.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Gallery</h2>
-    <img src="images/photo2.jpg" alt="Gallery Image 1">
-    <img src="images/photo3.jpg" alt="Gallery Image 2">
+  <section id="about">
+    <h2 class="section-title">About</h2>
+    <div class="about-content">
+      <p class="about-text">
+        I'm a passionate developer dedicated to crafting exceptional digital experiences that push the boundaries of what's possible. With a focus on clean code, innovative design, and user-centric solutions, I bring ideas to life through cutting-edge technology and creative problem-solving. Every project is an opportunity to create something meaningful and impactful.
+      </p>
+    </div>
   </section>
 
   <footer>
-    <p>© 2025 My Website</p>
+    <p>© 2025 Portfolio • Designed with passion</p>
   </footer>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Smooth scrolling for navigation dots
+    function setupScrollIndicators() {
+      const dots = document.querySelectorAll('.scroll-dot');
+      const sections = ['home', 'projects', 'about'];
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          document.getElementById(sections[index]).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Update active dot based on scroll position
+      window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        
+        sections.forEach((sectionId, index) => {
+          const section = document.getElementById(sectionId);
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            dots.forEach(d => d.classList.remove('active'));
+            dots[index].classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Add mouse movement parallax effect
+    function setupParallax() {
+      document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach((particle, index) => {
+          const speed = (index % 3 + 1) * 0.5;
+          const x = mouseX * speed;
+          const y = mouseY * speed;
+          particle.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+    }
+
+    // Initialize all effects
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      setupScrollIndicators();
+      setupParallax();
+    });
+  </script>
 </body>
 </html>
