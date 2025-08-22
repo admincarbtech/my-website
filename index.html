@@ -66,16 +66,16 @@
     /* Header */
     header {
       position: relative;
-      padding: 60px 40px 120px;
+      padding: 60px 40px 60px;
       text-align: center;
       overflow: hidden;
     }
 
     .logo-placeholder {
-      width: 120px;
-      height: 120px;
+      width: 180px;
+      height: 180px;
       background: rgba(20, 20, 20, 0.8);
-      border-radius: 24px;
+      border-radius: 32px;
       margin: 0 auto 40px;
       display: flex;
       align-items: center;
@@ -110,8 +110,8 @@
     }
 
     .logo-placeholder img {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       object-fit: contain;
       filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
     }
@@ -143,7 +143,7 @@
 
     /* Section styling */
     section {
-      padding: 80px 40px;
+      padding: 40px 40px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -173,7 +173,7 @@
       background: rgba(20, 20, 20, 0.8);
       border-radius: 20px;
       padding: 40px;
-      margin: 40px 0;
+      margin: 20px 0;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -210,17 +210,19 @@
     }
 
     .app-icon {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       background: linear-gradient(135deg, #8B5CF6, #A855F7, #7C3AED);
-      border-radius: 16px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
       position: relative;
       overflow: hidden;
-      padding: 8px;
+      padding: 12px;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
     }
 
     .app-icon::before {
@@ -238,8 +240,8 @@
     }
 
     .app-icon img {
-      width: 100%;
-      height: 100%;
+      width: 90px;
+      height: 90px;
       object-fit: contain;
       filter: brightness(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
@@ -360,7 +362,7 @@
       <img src="CarbTechLogo.png" alt="Carbtech Logo">
     </div>
     <h1>CarbTech LLC</h1>
-    <p class="tagline">Innovative Development Solutions</p>
+
   </header>
 
   <section id="projects">
@@ -372,7 +374,7 @@
         </div>
         <div class="project-info">
           <h3>Nota</h3>
-          <p>A revolutionary note-taking application that combines powerful organization tools with an intuitive, minimalist interface. Nota transforms the way you capture, organize, and access your thoughts with advanced search capabilities, seamless synchronization across devices, and intelligent categorization that adapts to your workflow.</p>
+          <p>An AI-powered application designed to help students create comprehensive notecard sets for effective studying. Nota uses advanced artificial intelligence to transform your notes into organized, study-ready flashcards, making learning more efficient and engaging. Perfect for students preparing for exams, presentations, or any educational content that benefits from structured review.</p>
         </div>
       </div>
     </div>
@@ -382,13 +384,13 @@
     <h2 class="section-title">About</h2>
     <div class="about-content">
       <p class="about-text">
-        I'm a passionate developer dedicated to crafting exceptional digital experiences that push the boundaries of what's possible. With a focus on clean code, innovative design, and user-centric solutions, I bring ideas to life through cutting-edge technology and creative problem-solving. Every project is an opportunity to create something meaningful and impactful.
+        CarbTech LLC is a forward-thinking technology company dedicated to crafting exceptional digital experiences that push the boundaries of what's possible. With a focus on clean code, innovative design, and user-centric solutions, we bring ideas to life through cutting-edge technology and creative problem-solving. Every project is an opportunity to create something meaningful and impactful for our clients and users.
       </p>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Portfolio • Designed with passion</p>
+    <p>2025 Portfolio • Designed with passion</p>
   </footer>
 
   <script>
